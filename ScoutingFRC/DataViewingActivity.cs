@@ -127,19 +127,6 @@ namespace ScoutingFRC
                 }
             }
         }
-
-        /// <summary>  
-        /// divide every element in an array by a given int.
-        /// </summary> 
-        private double[] DivideArray(int[] ar, int a)
-        {
-            double[] result = new double[ar.Length];
-            for (int j = 0; j < ar.Length; j++) {
-                result[j] = ((double) ar[j])/a;
-            }
-            return result;
-        }
-        
         /// <summary>  
         ///  add that successes and failure to a specifide index in an array
         /// </summary> 
