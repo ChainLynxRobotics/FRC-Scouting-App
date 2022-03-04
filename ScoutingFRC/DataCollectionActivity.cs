@@ -14,9 +14,8 @@ namespace ScoutingFRC
         private MatchData matchData;
         private bool autonomous = true;
 
-        private Stack<Action> HighGoal = new Stack<Action>();
-        private Stack<Action> LowGoal = new Stack<Action>();
-        private Stack<Action> Gears = new Stack<Action>();
+        private Stack<Action> highGoal = new Stack<Action>();
+        private Stack<Action> lowGoal = new Stack<Action>();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,34 +25,28 @@ namespace ScoutingFRC
 
             FindViewById<Button>(Resource.Id.buttonSubmit).Click += ButtonSubmit_Click;
 
-            FindViewById<Button>(Resource.Id.buttonGearGoal).Click += (sender, args) =>
-            {
-                AddAttempt(matchData.automomous.gears, matchData.teleoperated.gears, true, Gears);
-            };
-
-            FindViewById<Button>(Resource.Id.buttonGearMiss).Click += (sender, args) =>
-            {
-                AddAttempt(matchData.automomous.gears, matchData.teleoperated.gears, false, Gears);
-            };
-
             FindViewById<Button>(Resource.Id.buttonHighGoal).Click += (sender, args) =>
             {
-                AddAttempt(matchData.automomous.highBoiler, matchData.teleoperated.highBoiler, true, HighGoal);
+                AddAttempt(matchData.autonomous.highGoal, matchData.teleoperated.highGoal, true, highGoal);
             };
 
             FindViewById<Button>(Resource.Id.buttonHighMiss).Click += (sender, args) =>
             {
-                AddAttempt(matchData.automomous.highBoiler, matchData.teleoperated.highBoiler, false, HighGoal);
+                AddAttempt(matchData.autonomous.highGoal, matchData.teleoperated.highGoal, false, highGoal);
             };
+            FindViewById<Button>(Resource.Id.buttonHighBounce).Click += (sender, args) =>
+            {
+                AddAttempt(matchData.autonomous.highGoal)
+            }
 
             FindViewById<Button>(Resource.Id.buttonLowGoal).Click += (sender, args) =>
             {
-                AddAttempt(matchData.automomous.lowBoiler, matchData.teleoperated.lowBoiler, true, LowGoal);
+                AddAttempt(matchData.autonomous.lowGoal, matchData.teleoperated.lowGoal, true, lowGoal);
             };
 
             FindViewById<Button>(Resource.Id.buttonLowMiss).Click += (sender, args) =>
             {
-                AddAttempt(matchData.automomous.lowBoiler, matchData.teleoperated.lowBoiler, false, LowGoal);
+                AddAttempt(matchData.autonomous.lowGoal, matchData.teleoperated.lowGoal, false, lowGoal);
             };
 
             FindViewById<Switch>(Resource.Id.switchAuto).CheckedChange += OnCheckedChange;
@@ -65,24 +58,18 @@ namespace ScoutingFRC
 
             var number = Intent.GetIntExtra("match", 0);
             if (number != 0) {
-                FindViewById<TextView>(Resource.Id.editTextMathcNumber).Text = number.ToString();
+                FindViewById<TextView>(Resource.Id.editTextMatchNumber).Text = number.ToString();
             }
 
             FindViewById<ImageButton>(Resource.Id.buttonUndoHighBoiler).Click += (sender, args) =>
             {
-                Undo(HighGoal);
+                Undo(highGoal);
             };
 
             FindViewById<ImageButton>(Resource.Id.buttonUndoLowBoiler).Click += (sender, args) =>
             {
-                Undo(LowGoal);
+                Undo(lowGoal);
             };
-
-            FindViewById<ImageButton>(Resource.Id.buttonUndoGears).Click += (sender, args) =>
-            {
-                Undo(Gears);
-            };
-
             RedrawLayout();
         }
 
@@ -148,7 +135,7 @@ namespace ScoutingFRC
             }
 
             try {
-                matchData.match = int.Parse(FindViewById<TextView>(Resource.Id.editTextMathcNumber).Text);
+                matchData.match = int.Parse(FindViewById<TextView>(Resource.Id.editTextMatchNumber).Text);
             }
             catch {
                 ComplainAboutField("a match number");
@@ -161,8 +148,11 @@ namespace ScoutingFRC
                 return;
             }
 
-            matchData.automomous.oneTimePoints = FindViewById<CheckBox>(Resource.Id.checkBox1).Checked;
-            matchData.teleoperated.oneTimePoints = FindViewById<CheckBox>(Resource.Id.checkBoxClimb).Checked;
+            matchData.autonomous.oneTimePoints = FindViewById<CheckBox>(Resource.Id.checkBox1).Checked;
+            matchData.teleoperated.oneTimePoints = FindViewById<CheckBox>(Resource.Id.checkBoxMowBar).Checked;
+            matchData.teleoperated.oneTimePoints = FindViewById<CheckBox>(Resource.Id.checkBoxMidBar).Checked;
+            matchData.teleoperated.oneTimePoints = FindViewById<CheckBox>(Resource.Id.checkBoxHighBar).Checked;
+            matchData.teleoperated.oneTimePoints = FindViewById<CheckBox>(Resource.Id.checkBoxTraverseBar).Checked;
             matchData.scoutName = name;
             matchData.notes = FindViewById<TextView>(Resource.Id.editTextNotes).Text;
 
@@ -180,12 +170,10 @@ namespace ScoutingFRC
         /// </summary>
         private void RedrawLayout()
         {
-            FindViewById<TextView>(Resource.Id.textViewAutoGears).Text = "Auto " + matchData.automomous.gears;
-            FindViewById<TextView>(Resource.Id.textViewTeleGears).Text = "Tele " + matchData.teleoperated.gears;
-            FindViewById<TextView>(Resource.Id.textViewAutoHighBoiler).Text = "Auto " + matchData.automomous.highBoiler;
-            FindViewById<TextView>(Resource.Id.textViewTeleHighBoiler).Text = "Tele " + matchData.teleoperated.highBoiler;
-            FindViewById<TextView>(Resource.Id.textViewAutoLowBoiler).Text = "Auto " + matchData.automomous.lowBoiler;
-            FindViewById<TextView>(Resource.Id.textViewTeleLowBoiler).Text = "Tele " + matchData.teleoperated.lowBoiler;
+            FindViewById<TextView>(Resource.Id.textViewAutoHighGoal).Text = "Auto " + matchData.autonomous.highGoal;
+            FindViewById<TextView>(Resource.Id.textViewTeleHighGoal).Text = "Tele " + matchData.teleoperated.highGoal;
+            FindViewById<TextView>(Resource.Id.textViewAutoLowGoal).Text = "Auto " + matchData.autonomous.lowGoal;
+            FindViewById<TextView>(Resource.Id.textViewAutoLowGoal).Text = "Tele " + matchData.teleoperated.lowGoal;
         }
 
         /// <summary>

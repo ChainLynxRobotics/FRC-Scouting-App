@@ -34,11 +34,14 @@ namespace ScoutingFRC
             int count = datas.Count;
             string matches = "";
             int matchCount = 0;
-            int[] gears = new int[4];
-            int[] HighGoals = new int[4];
-            int[] LowGoals = new int[4];
-            int baseline = 0;
-            double climbing =0;
+            double HighGoals = 0;
+            double LowGoals = 0;
+            double autoLine = 0;
+            double humanPlayer = 0;
+            double lowBar = 0;
+            double midBar = 0;
+            double highBar = 0;
+            double traverseBar = 0;
 
             foreach (var teamData in datas) {
                 if (!(teamData is MatchData)) {
@@ -47,40 +50,47 @@ namespace ScoutingFRC
                 matchCount++;
                 MatchData matchData = teamData as MatchData;
                 matches += matchData.match + ", ";
-                if (matchData.automomous.oneTimePoints) {
-                    baseline++;
+                if (matchData.autonomous.oneTimePoints) {
+                    autoLine++;
+                    humanPlayer++;
                 }
                 if (matchData.teleoperated.oneTimePoints) {
-                    climbing++;
+                    lowBar++;
+                    midBar++;
+                    highBar++;
+                    traverseBar++;
                 }
-                AddScoringMethod(matchData.automomous.gears, 0, gears);
-                AddScoringMethod(matchData.teleoperated.gears, 2, gears);
-                AddScoringMethod(matchData.automomous.highBoiler, 0, HighGoals);
-                AddScoringMethod(matchData.teleoperated.highBoiler, 2, HighGoals);
-                AddScoringMethod(matchData.automomous.lowBoiler, 0, LowGoals);
-                AddScoringMethod(matchData.teleoperated.lowBoiler, 2, LowGoals);
+                AddScoringMethod(matchData.autonomous.highGoal, 0, HighGoals);
+                AddScoringMethod(matchData.teleoperated.highGoal, 2, HighGoals);
+                AddScoringMethod(matchData.autonomous.lowGoal, 0, LowGoals);
+                AddScoringMethod(matchData.teleoperated.lowGoal, 2, LowGoals);
             }
 
-            double[] high = DivideArray(HighGoals, matchCount);
-            double[] low = DivideArray(LowGoals, matchCount);
-            double[] gear = DivideArray(gears, matchCount);
-            double baselinePercentage = (((double)baseline)/matchCount)*100;
-            double climbingPercentage = (climbing / matchCount) * 100;
+            double high = (HighGoals / matchCount);
+            double low = (LowGoals / matchCount);
+            double human = (humanPlayer / matchCount);
+            double autoLinePercentage = (autoLine / matchCount) * 100;
+            double lowBarPercentage = (lowBar / matchCount) * 100;
+            double midBarPercentage = (midBar / matchCount) * 100;
+            double highBarPercentage = (highBar / matchCount) * 100;
+            double traverseBarPercentage = (traverseBar / matchCount) * 100;
 
-            UpdateTextView(Resource.Id.textViewBaseline, $"Baseline - {Math.Round(baselinePercentage,2)}%",(int)baselinePercentage);
-            UpdateTextView(Resource.Id.textViewAutoGear, $"Gear - {Math.Round(gear[0]*100, 2)}%", gear[0]);
-            UpdateTextView(Resource.Id.textViewAutoHG, $"High Goals - {Math.Round(high[0], 2)}", high[0]);
-            UpdateTextView(Resource.Id.textViewAutoLG, $"Low Goals - {Math.Round(low[0], 2)}", low[0]);
+            UpdateTextView(Resource.Id.textViewAutoLine, $"Taxi - {Math.Round(autoLinePercentage,2)}%", autoLinePercentage);
+            UpdateTextView(Resource.Id.textViewAutoHumanPlayer, $"Human Player - {Math.Round(human*100, 2)}%", human);
+            UpdateTextView(Resource.Id.textViewAutoHG, $"High Goals - {Math.Round(high, 2)}", high);
+            UpdateTextView(Resource.Id.textViewAutoLG, $"Low Goals - {Math.Round(low, 2)}", low);
 
-            UpdateTextView(Resource.Id.textViewTeleGears, $"Gears - {Math.Round(gear[2], 2)}/{Math.Round(gear[3], 2)}", gear[3]);
-            UpdateTextView(Resource.Id.textViewTeleHG, $"High Goals - {Math.Round(high[2], 2)}/{Math.Round(high[3], 2)}", high[3]);
-            UpdateTextView(Resource.Id.textViewTeleLG, $"Low Goals - {Math.Round(low[2], 2)}/{Math.Round(low[3], 2)}", low[3]);
-            UpdateTextView(Resource.Id.textViewClimbingView, $"Climbing - {Math.Round(climbingPercentage, 2)}%", climbingPercentage);
+            UpdateTextView(Resource.Id.textViewTeleHG, $"High Goals - {Math.Round(high, 2)}/{Math.Round(high, 2)}", high);
+            UpdateTextView(Resource.Id.textViewTeleLG, $"Low Goals - {Math.Round(low, 2)}/{Math.Round(low, 2)}", low);
+            UpdateTextView(Resource.Id.textViewlowBarView, $"Low Bar - {Math.Round(lowBarPercentage,2)}%", lowBarPercentage);
+            UpdateTextView(Resource.Id.textViewMidBarView, $"Mid Bar - {Math.Round(midBarPercentage,2)}%", midBarPercentage);
+            UpdateTextView(Resource.Id.textViewHighBarView, $"High Bar - {Math.Round(highBarPercentage,2)}%", highBarPercentage);
+            UpdateTextView(Resource.Id.textViewTraverseBarView, $"Traverse - {Math.Round(traverseBarPercentage,2)}%", traverseBarPercentage);
 
             if (matchCount > 0) {
-                FindViewById<TextView>(Resource.Id.textView1).Text = ((matchCount>1)? "Mathces: " : "Match: ") + matches.Substring(0, matches.Length - 2);
-                double autoPoints = (baselinePercentage/100)*5 + (gear[0])*60 + high[0] + low[0]/3;
-                double telePoints = (climbingPercentage / 100) * 50 + (gear[2]) * 10 + high[0]/3 + low[0] / 9;
+                FindViewById<TextView>(Resource.Id.textView1).Text = ((matchCount>1)? "Matches: " : "Match: ") + matches.Substring(0, matches.Length - 2);
+                double autoPoints = (autoLine * 2) + (humanPlayer * 4) + (high * 4) + (low * 2);
+                double telePoints = (high * 2) + low + (lowBar * 4) + (midBar * 6) + (highBar * 10) + (traverseBar * 14);
                 FindViewById<TextView>(Resource.Id.textViewAutoPts).Text = Math.Round(autoPoints, 3) + " pts";
                 FindViewById<TextView>(Resource.Id.textViewTelePts).Text = Math.Round(telePoints, 3) + " pts";
 

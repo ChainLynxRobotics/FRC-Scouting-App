@@ -8,12 +8,12 @@ namespace ScoutingFRC
     class MatchData : TeamData
     {
         public int match;
-        public PerformanceData automomous;
+        public PerformanceData autonomous;
         public PerformanceData teleoperated;
 
         public MatchData()
         {
-            automomous = new PerformanceData();
+            autonomous = new PerformanceData();
             teleoperated = new PerformanceData();
         }
 
@@ -24,7 +24,7 @@ namespace ScoutingFRC
             }
 
             MatchData m = obj as MatchData;
-            return base.Equals(obj) && match == m.match && automomous.Equals(m.automomous) && teleoperated.Equals(m.teleoperated);
+            return base.Equals(obj) && match == m.match && autonomous.Equals(m.autonomous) && teleoperated.Equals(m.teleoperated);
         }
 
         /// <summary>
@@ -55,27 +55,25 @@ namespace ScoutingFRC
         /// </summary>
         public int GetDataHash()
         {
-            return new { automomous, teleoperated }.GetHashCode();
+            return new { autonomous, teleoperated }.GetHashCode();
         }
 
         public override int GetHashCode()
         {
-            return new { teamNumber, match, automomous, teleoperated }.GetHashCode();
+            return new { teamNumber, match, autonomous, teleoperated }.GetHashCode();
         }
 
         [Serializable]
         public class PerformanceData
         {
-            public ScoringMethod highBoiler;
-            public ScoringMethod lowBoiler;
-            public ScoringMethod gears;
+            public ScoringMethod highGoal;
+            public ScoringMethod lowGoal;
             public bool oneTimePoints;
 
             public PerformanceData()
             {
-                highBoiler = new ScoringMethod();
-                lowBoiler  = new ScoringMethod();
-                gears      = new ScoringMethod();
+                highGoal = new ScoringMethod();
+                lowGoal  = new ScoringMethod();
 
                 oneTimePoints = false;
             }
@@ -87,12 +85,12 @@ namespace ScoutingFRC
                 }
 
                 PerformanceData p = obj as PerformanceData;
-                return highBoiler.Equals(p.highBoiler) && lowBoiler.Equals(p.lowBoiler) && gears.Equals(p.gears) && oneTimePoints == p.oneTimePoints;
+                return highGoal.Equals(p.highGoal) && lowGoal.Equals(p.lowGoal) && oneTimePoints == p.oneTimePoints;
             }
 
             public override int GetHashCode()
             {
-                return new { highBoiler, lowBoiler, gears, oneTimePoints }.GetHashCode();
+                return new {highGoal, lowGoal, oneTimePoints }.GetHashCode();
             }
 
             [Serializable]
@@ -100,11 +98,13 @@ namespace ScoutingFRC
             {
                 public int failedAttempts;
                 public int successes;
+                public int bounces;
 
                 public ScoringMethod()
                 {
                     failedAttempts = 0;
                     successes = 0;
+                    bounces = 0;
                 }
 
                 public override bool Equals(object obj)
@@ -119,7 +119,7 @@ namespace ScoutingFRC
 
                 public override int GetHashCode()
                 {
-                    return new { failedAttempts, successes }.GetHashCode();
+                    return new {failedAttempts, successes, bounces}.GetHashCode();
                 }
 
                 /// <summary>
@@ -130,7 +130,7 @@ namespace ScoutingFRC
                     if (successful)  {
                         successes--;
                     }
-                    else {
+                    else
                         failedAttempts--;
                     }
                 }
@@ -143,6 +143,7 @@ namespace ScoutingFRC
                     if (successful) {
                         successes++;
                     }
+                    if (bounces)
                     else {
                         failedAttempts++;
                     }

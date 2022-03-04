@@ -56,11 +56,11 @@
                 android:textSize="30dp" />
         </LinearLayout>
         <TextView
-            android:text="Baseline -  ##%"
+            android:text="autoLine -  ##%"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textViewBaseline" />
+            android:id="@+id/textViewautoLine" />
         <TextView
             android:text="Gear - ##%"
             android:textAppearance="?android:attr/textAppearanceLarge"

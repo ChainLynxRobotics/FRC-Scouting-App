@@ -56,7 +56,7 @@
             <EditText
                 android:inputType="number"
                 android:layout_height="wrap_content"
-                android:id="@+id/editTextMathcNumber"
+                android:id="@+id/editTextMatchNumber"
                 android:layout_width="match_parent"
                 android:layout_gravity="right"
                 android:layout_weight="1"
@@ -126,7 +126,7 @@
             android:layout_gravity="top"
             android:layout_weight="1">
             <CheckBox
-                android:text="Cross the baseline "
+                android:text="Cross the autoLine "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBox1"
