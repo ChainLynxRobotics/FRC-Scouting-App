@@ -130,10 +130,10 @@ namespace ScoutingFRC
         /// <summary>  
         ///  add that successes and failure to a specifide index in an array
         /// </summary> 
-        private void AddScoringMethod(MatchData.PerformanceData.ScoringMethod method, int start, int[] arr)
+        private void AddScoringMethod(MatchData.PerformanceData.ScoringMethod method, int start, int store)
         {
-            arr[start] += method.successes;
-            arr[start + 1] += method.failedAttempts + method.successes;
+            store += method.successes;
+            store += method.failedAttempts + method.successes;
         }
     }
 }
