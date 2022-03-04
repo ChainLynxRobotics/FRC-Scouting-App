@@ -79,8 +79,8 @@ namespace ScoutingFRC
 
             if (matchCount > 0) {
                 FindViewById<TextView>(Resource.Id.textView1).Text = ((matchCount>1)? "Mathces: " : "Match: ") + matches.Substring(0, matches.Length - 2);
-                double autoPoints = (baselinePercentage/100)*5 + (gear[0])*60 + high[0] + low[0]/3;
-                double telePoints = (climbingPercentage / 100) * 50 + (gear[2]) * 10 + high[0]/3 + low[0] / 9;
+                double autoPoints = (baselinePercentage/100)*2 + (gear[0])*60 + high[0] + low[0]/3;
+                double telePoints = (climbingPercentage / 100)*7 + (gear[2]) * 10 + high[0]/3 + low[0] / 9;
                 FindViewById<TextView>(Resource.Id.textViewAutoPts).Text = Math.Round(autoPoints, 3) + " pts";
                 FindViewById<TextView>(Resource.Id.textViewTelePts).Text = Math.Round(telePoints, 3) + " pts";
 

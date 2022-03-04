@@ -126,7 +126,7 @@
             android:layout_gravity="top"
             android:layout_weight="1">
             <CheckBox
-                android:text="Cross the baseline "
+                android:text="Taxi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBox1"
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout8">
                 <TextView
-                    android:text="High Boiler"
+                    android:text="High Goal"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/textView3"
                     android:textStyle="bold"
@@ -205,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout9">
                 <TextView
-                    android:text="Low Boiler"
+                    android:text="Low Goal"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/textView3"
                     android:textStyle="bold"
@@ -271,7 +271,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout10">
                 <TextView
-                    android:text="Gears"
+                    android:text="Human Player"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/textView3"
                     android:textStyle="bold"
@@ -308,7 +308,7 @@
                     <Button
                         android:background="@drawable/gearButton"
                         style="@style/button_text"
-                        android:text="Placed"
+                        android:text="Score"
                         android:layout_height="match_parent"
                         android:id="@+id/buttonGearGoal"
                         android:layout_width="match_parent"
@@ -316,7 +316,7 @@
                     <Button
                         android:background="@drawable/gearButton"
                         style="@style/button_text"
-                        android:text="Dropped"
+                        android:text="Miss"
                         android:layout_height="match_parent"
                         android:id="@+id/buttonGearMiss"
                         android:layout_weight="1"
@@ -331,7 +331,7 @@
                 </LinearLayout>
             </LinearLayout>
             <CheckBox
-                android:text="Climb"
+                android:text="Climb (Mark Bar Level in Notes)"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBoxClimb"
