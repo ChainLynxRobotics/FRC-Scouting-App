@@ -126,7 +126,7 @@
             android:layout_gravity="top"
             android:layout_weight="1">
             <CheckBox
-                android:text="Cross the baseline "
+                android:text="Taxi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBox1"
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout8">
                 <TextView
-                    android:text="High Boiler"
+                    android:text="High Goal"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/textView3"
                     android:textStyle="bold"
@@ -205,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout9">
                 <TextView
-                    android:text="Low Boiler"
+                    android:text="Low Goal"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/textView3"
                     android:textStyle="bold"
@@ -265,7 +265,7 @@
                         android:layout_margin="3dp" />
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
+            <!--<LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -329,9 +329,9 @@
                         android:background="@drawable/gearbutton"
                         android:layout_margin="3dp" />
                 </LinearLayout>
-            </LinearLayout>
+            </LinearLayout>-->
             <CheckBox
-                android:text="Climb"
+                android:text="Climb (Type climb bar in Notes)"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBoxClimb"
