@@ -19,7 +19,8 @@ namespace ScoutingFRC
 
         public override bool Equals(object obj)
         {
-            if (obj == null || GetType() != obj.GetType()) {
+            if (obj == null || GetType() != obj.GetType())
+            {
                 return false;
             }
 
@@ -32,7 +33,8 @@ namespace ScoutingFRC
         /// </summary>
         public static T Deserialize<T>(byte[] bytes) where T : class
         {
-            using (MemoryStream stream = new MemoryStream(bytes)) {
+            using (MemoryStream stream = new MemoryStream(bytes))
+            {
                 var binaryFormatter = new BinaryFormatter();
                 return binaryFormatter.Deserialize(stream) as T;
             }
@@ -43,7 +45,8 @@ namespace ScoutingFRC
         /// </summary>
         public static byte[] Serialize<T>(T matchData) where T : class
         {
-            using (MemoryStream stream = new MemoryStream()) {
+            using (MemoryStream stream = new MemoryStream())
+            {
                 var binaryFormatter = new BinaryFormatter();
                 binaryFormatter.Serialize(stream, matchData);
                 return stream.ToArray();
@@ -73,14 +76,15 @@ namespace ScoutingFRC
             public PerformanceData()
             {
                 highGoal = new ScoringMethod();
-                lowGoal  = new ScoringMethod();
+                lowGoal = new ScoringMethod();
 
                 oneTimePoints = false;
             }
 
             public override bool Equals(object obj)
             {
-                if (obj == null || GetType() != obj.GetType()) {
+                if (obj == null || GetType() != obj.GetType())
+                {
                     return false;
                 }
 
@@ -90,7 +94,7 @@ namespace ScoutingFRC
 
             public override int GetHashCode()
             {
-                return new {highGoal, lowGoal, oneTimePoints }.GetHashCode();
+                return new { highGoal, lowGoal, oneTimePoints }.GetHashCode();
             }
 
             [Serializable]
@@ -98,18 +102,17 @@ namespace ScoutingFRC
             {
                 public int failedAttempts;
                 public int successes;
-                public int bounces;
 
                 public ScoringMethod()
                 {
                     failedAttempts = 0;
                     successes = 0;
-                    bounces = 0;
                 }
 
                 public override bool Equals(object obj)
                 {
-                    if (obj == null || GetType() != obj.GetType()) {
+                    if (obj == null || GetType() != obj.GetType())
+                    {
                         return false;
                     }
 
@@ -119,7 +122,7 @@ namespace ScoutingFRC
 
                 public override int GetHashCode()
                 {
-                    return new {failedAttempts, successes, bounces}.GetHashCode();
+                    return new { failedAttempts, successes }.GetHashCode();
                 }
 
                 /// <summary>
@@ -127,24 +130,26 @@ namespace ScoutingFRC
                 /// </summary>
                 public void DecrementAttempt(bool successful)
                 {
-                    if (successful)  {
+                    if (successful)
+                    {
                         successes--;
                     }
                     else
+                    {
                         failedAttempts--;
                     }
                 }
-
                 /// <summary>
                 /// Increases number of attempts.
                 /// </summary>
                 public void IncrementAttempt(bool successful)
                 {
-                    if (successful) {
+                    if (successful)
+                    {
                         successes++;
                     }
-                    if (bounces)
-                    else {
+                    else
+                    {
                         failedAttempts++;
                     }
                 }

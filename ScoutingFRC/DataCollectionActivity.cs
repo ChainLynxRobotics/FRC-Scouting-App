@@ -34,10 +34,6 @@ namespace ScoutingFRC
             {
                 AddAttempt(matchData.autonomous.highGoal, matchData.teleoperated.highGoal, false, highGoal);
             };
-            FindViewById<Button>(Resource.Id.buttonHighBounce).Click += (sender, args) =>
-            {
-                AddAttempt(matchData.autonomous.highGoal)
-            }
 
             FindViewById<Button>(Resource.Id.buttonLowGoal).Click += (sender, args) =>
             {
