@@ -31,11 +31,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/buttonCollect" />
-            <Button
+            <!--<Button
                 android:text="Scout a pit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/buttonPitScouting" />
+                android:id="@+id/buttonPitScouting" />-->
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"
